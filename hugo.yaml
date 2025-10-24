@@ -2,3 +2,7 @@ params:
   programs:
     share_links:
       enabled: false
+  alumni:
+    menu:
+      programs:
+        exclude_children: false

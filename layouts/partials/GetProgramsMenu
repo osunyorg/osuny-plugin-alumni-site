@@ -1,17 +1,21 @@
 
-# Get Academic Years
+# Get Academic Programs
 {{ $academic_years := site.GetPage "academic_years" }}
+{{ $exclude_children := site.Params.alumni.menu.programs.exclude_children }}
 
 {{ $menu := slice }}
 {{ with $academic_years.Params.alumni.programs }}
   {{ range . }}
-    {{ $menu = $menu | append (dict
-        "title" .name
-        "kind" "page"
-        "target" .permalink
-        "path" .path
-        "children" slice
-      ) }}
+    {{ $program := site.GetPage .path }}
+    {{ if or (not $exclude_children) (not $program.Params.parent) }}
+      {{ $menu = $menu | append (dict
+          "title" .name
+          "kind" "page"
+          "target" .permalink
+          "path" .path
+          "children" slice
+        ) }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
