@@ -1,4 +1,4 @@
-# Plugin Osuny : centered layout
+# Plugin Osuny : alumni site
 
 Ce plugin ajoute la gestion des alumni publics dans un site Web.
 
