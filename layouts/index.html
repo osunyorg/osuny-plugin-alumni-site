@@ -3,22 +3,35 @@
 
   <div class="document-content">
     {{- if not $.Site.Params.home.toc.disabled -}}
-      {{ partial "toc/container.html"
-          (dict
-              "toc" "toc/default.html"
-              "context" .
-          )
-      }}
+      {{ partial "toc/container.html" (dict
+        "toc" "toc/default.html"
+        "context" .
+      ) }}
     {{- end -}}
 
     {{ partial "home/summary.html" (dict
-        "block_wrapped" true
-        "context" .
-      ) }}
+      "block_wrapped" true
+      "context" .
+    ) }}
 
     {{ if .Params.contents }}
-      {{ partial "contents/list.html" . }}
-      {{ partial "alumni/list.html" . }}
+      {{ partial "contents/list.html" (dict
+        "context" .
+        "contents" .Params.contents
+      ) }}
+
+      {{ $person_page := site.GetPage "/persons" }}
+      {{/*  {{ $persons := where $person_page.Pages ".Params.cohorts" "ne" nil }}  */}}
+      {{ $persons := $person_page.Pages }}
+
+      {{ $paginator := .Paginate $persons 2 }}
+
+      {{ partial "alumni/list.html" (dict 
+        "context" .
+        "persons" $paginator.Pages
+      ) }}
+
+      {{ partial "commons/pagination.html" . }}
     {{ end }}
   </div>
 {{ end }}
