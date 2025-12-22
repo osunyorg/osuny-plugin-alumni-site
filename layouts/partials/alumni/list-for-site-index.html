@@ -1,0 +1,26 @@
+{{ $academic_years := site.GetPage "/academic_years" }}
+{{ $cohorts := $academic_years.RegularPagesRecursive }}
+
+{{ $persons_from_cohorts := slice }}
+{{ range (sort $cohorts ".Params.academic_year.slug") }}
+  {{ $persons_from_cohorts = append $persons_from_cohorts .Params.persons }}
+{{ end }}
+
+{{ $persons_from_cohorts = uniq $persons_from_cohorts }}
+{{ $persons := partial "GetObjectsFromPathSlice" $persons_from_cohorts }}
+
+{{/*  {{ $persons }}  */}}
+{{/*  {{ $person_page := site.GetPage "/persons" }}
+{{ $persons := where $person_page.Pages ".Params.cohorts" "ne" nil }}
+{{ $persons = uniq $persons }}
+{{ $persons = sort $persons ".Params.last_name" }}  */}}
+{{/*  {{ $persons := where $person_page.Pages ".Params.cohorts" "intersect" nil }}  */}}
+
+{{ $paginator := .Paginate $persons 20 }}
+
+{{/*  {{ $paginator.Pages }}  */}}
+
+{{ partial "alumni/list.html" (dict 
+  "context" .
+  "persons" $persons
+) }} 

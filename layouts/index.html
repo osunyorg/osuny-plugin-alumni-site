@@ -20,23 +20,9 @@
         "contents" .Params.contents
       ) }}
 
-      {{ $academic_years := site.GetPage "/academic_years" }}
-      {{ $years := $academic_years.Pages }}
+      {{ partial "alumni/list-for-site-index.html" . }}
 
-      {{ $person_page := site.GetPage "/persons" }}
-      {{ $persons := where $person_page.Pages ".Params.cohorts" "ne" nil }}
-      {{ $persons = uniq $persons }}
-      {{ $persons = sort $persons ".Params.last_name" }}
-      {{/*  {{ $persons := where $person_page.Pages ".Params.cohorts" "intersect" nil }}  */}}
-
-      {{ $paginator := .Paginate $persons 20 }}
-
-      {{ partial "alumni/list.html" (dict 
-        "context" .
-        "persons" $paginator.Pages
-      ) }}
-
-      {{ partial "commons/pagination.html" . }}
+      {{/*  {{ partial "commons/pagination.html" . }}  */}}
     {{ end }}
   </div>
 {{ end }}
