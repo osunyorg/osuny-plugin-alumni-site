@@ -4,6 +4,9 @@ params:
       programs:
         exclude_children: false
   persons:
+    index:
+      options:
+        summary: false
     single:
       backlinks: true
   programs:
