@@ -1,0 +1,9 @@
+{{ with .Params.cohorts }}
+  <ul class="person-cohorts">
+    {{ range . }}
+      <li>
+        <a href="{{ .permalink }}">{{ .title }}</a>
+      </li>
+    {{ end }}
+  </ul>
+{{ end }}
