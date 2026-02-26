@@ -1,0 +1,30 @@
+{{ $kind := "alumni" }}
+{{ $menu := partial "header/menu/helpers/GetAlumniMenu" .context }}
+{{ $level := 1 }}
+{{ $items := $menu.items }}
+{{ $options := site.Params.menu.primary }}
+{{ $level_options := index $options (printf "level_%d" $level) }}
+{{ $context := .context }}
+
+{{ if $items }}
+  <ul class="{{ with $level }}nav-level-{{ . }}{{ end }} {{ .class }}">
+    {{ range $items }}
+      {{ partial "commons/menu/item.html" (dict
+        "item" .
+        "kind" $kind
+        "options" $options
+        "level" $level
+        "level_options" $level_options
+        "context" $context
+      ) }}
+    {{ end }}
+    {{ partial "commons/menu/search.html" (dict
+      "kind" $kind
+      "context" $context
+    ) }}
+    {{ partial "commons/menu/i18n.html" (dict
+      "kind" $kind
+      "context" $context
+    ) }}
+  </ul>
+{{ end }}
