@@ -1,7 +1,7 @@
 {{ partial "programs/single/hero.html" . }}
 
 <div class="document-content {{ with .Params.diplomas }}diploma-{{.}}{{ end }}" itemscope itemtype="https://schema.org/EducationalOccupationalCredential">
-  <meta itemprop="name" content="{{ partial "PrepareHTML" .Title }}">
+  <meta itemprop="name" content="{{ safeHTML .Title }}">
   <meta itemprop="url" content="{{ .Permalink }}">
 
   {{- if .Params.image -}}
@@ -24,7 +24,7 @@
     "context" .
   ) }}
 
-  {{- partial "programs/single/cohorts.html" . -}}
+  {{- partial "programs/single/core/cohorts.html" . -}}
 
-  {{- partial "hooks/before-program-end.html" . -}}
+  {{- partial "programs/single/hooks/before-end.html" . -}}
 </div>
