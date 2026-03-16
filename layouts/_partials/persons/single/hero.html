@@ -4,7 +4,7 @@
   "title" $title
   "image" .Params.image
   "context" .
-  "hero_text_complement" "persons/single/cohorts.html"
+  "hero_text_complement" ( partial "persons/single/cohorts.html" . )
   "sizes" site.Params.image_sizes.sections.persons.hero_single
 ) -}}
 
